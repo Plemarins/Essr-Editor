@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Code Editor</title>
+  <style>
+    body { margin: 0; font-family: Arial; display: flex; }
+    #explorer { width: 200px; background: #f0f0f0; padding: 10px; }
+    #editor { flex-grow: 1; height: 50vh; }
+    #preview { flex-grow: 1; height: 50vh; border-top: 1px solid #ccc; }
+    .file-item { cursor: pointer; }
+    .file-item:hover { background: #ddd; }
+  </style>
+</head>
+<body>
+  <div id="explorer"></div>
+  <div style="flex-grow: 1; display: flex; flex-direction: column;">
+    <div id="editor"></div>
+    <iframe id="preview" src="http://localhost:3000/preview.html"></iframe>
+  </div>
+  <script src="node_modules/monaco-editor/min/vs/loader.js"></script>
+  <script>
+    require.config({ paths: { vs: 'node_modules/monaco-editor/min/vs' } });
+    require(['vs/editor/editor.main'], () => {
+      window.editor = monaco.editor.create(document.getElementById('editor'), {
+        value: '// Welcome to My Code Editor\n',
+        language: 'javascript',
+        theme: 'vs-dark',
+      });
+    });
+  </script>
+  <script src="renderer.js"></script>
+</body>
+</html>
